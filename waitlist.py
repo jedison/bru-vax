@@ -10,14 +10,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 
 REQUEST_URL = "https://bruvax.brussels.doctena.be/"
-NISS = "67112602401" # "66120251324"
-ZIP = "1040"
 WAITLIST = "ajouter sur la liste d"
 CENTERS = ["Pacheco", "Heysel", "Woluwe-Saint-Pierre", "Schaerbeek", "Molenbeek", "Forest", "Anderlecht  RSCA", "Woluwe-Saint-Lambert", "Uccle", "Hôpital Militaire"]
-FIRSTNAME = "Isabelle" #"Jeffrey"
-LASTNAME = "Willot" # "Edison"
-EMAIL = "isabelle.willot@levif.be" # "jeffrey.edison@gmail.com"
-MOBILE = "0495537423" # "0476409605"
 
 def startBrowser( ):
     print("starting webdriver")
@@ -134,10 +128,12 @@ def changeCenter(which):
 
 class Waitlist:
     def __init__(self):
-        # self.niss = int(input("What is your NISS? "))
-        # self.zip = int(input("What is your postcode? "))
-        self.niss = NISS
-        self.zip = ZIP
+        self.lastName = input("What is your last name / surname? ")
+        self.firstName = input("What is your first name? ")
+        self.email = input("What is your email? ")
+        self.modile = input("What is your mobile number? ")
+        self.niss = int(input("What is your NISS? "))
+        self.zip = int(input("What is your postcode? "))
         self.centers = list()
         for center in CENTERS:
             if "Y" in (input("Register for Vaccination Center: " + center + " (Y/N) ? ")).upper():
@@ -150,7 +146,7 @@ class Waitlist:
             gotoWebsite(REQUEST_URL)
             login(self.niss, self.zip)
             chooseCenter(self.centers[i])
-            signup(self.centers[i], FIRSTNAME, LASTNAME, EMAIL, MOBILE)
+            signup(self.centers[i], self.firstName, self.lastName, self.email, self.mobile)
             i = i + 1
 
             # BACK just will not work!
